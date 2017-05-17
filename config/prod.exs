@@ -15,9 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :todo, Todo.Web.Endpoint,
   on_init: {Todo.Web.Endpoint, :load_from_system_env, []},
-  url: [scheme: "https", host: "pacific-escarpment-73840.herokuapp.com", port: 443],
-  cache_static_manifest: "priv/static/cache_manifest.json"
-
+  url: [scheme: "https", host: "pacific-escarpment-73840.herokuapp.com", port: 443]
 # Do not print debug messages in production
 config :logger, level: :info
 
