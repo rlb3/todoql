@@ -1,11 +1,7 @@
 defmodule Todo.UserResolver do
   alias Todo.{Repo, User, Session}
 
-  # def all(_args, %{context: %{current_user: _user}}) do
-  #   {:ok, Repo.all(User)}
-  # end
-
-  def all(_, _) do
+  def all(_args, %{context: %{current_user: _user}}) do
     {:ok, Repo.all(User)}
   end
 
