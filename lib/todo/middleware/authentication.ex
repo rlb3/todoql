@@ -7,7 +7,6 @@ defmodule Todo.Authentication do
       _ ->
         resolution
         |> Absinthe.Resolution.put_result({:error, "unauthenticated"})
-
     end
   end
 end

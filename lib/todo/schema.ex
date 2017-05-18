@@ -5,13 +5,11 @@ defmodule Todo.Schema do
   query do
     @desc "Get all users"
     field :users, list_of(:user) do
-      # middleware Todo.Authentication
       resolve &Todo.UserResolver.all/2
     end
 
     @desc "Get current user"
     field :me, :user do
-      middleware Todo.Authentication
       resolve &Todo.UserResolver.me/2
     end
 
@@ -19,7 +17,6 @@ defmodule Todo.Schema do
     field :items, list_of(:item) do
       arg :show_all, :boolean, default_value: false
 
-      middleware Todo.Authentication
       resolve &Todo.ItemResolver.all/2
     end
   end
@@ -46,7 +43,6 @@ defmodule Todo.Schema do
     field :add_todo, type: :item do
       arg :title, non_null(:string), description: "Todo's title"
 
-      middleware Todo.Authentication
       resolve &Todo.ItemResolver.create/2
     end
 
@@ -55,7 +51,6 @@ defmodule Todo.Schema do
       arg :id, :id, description: "The todo's ID"
       arg :title, :string, description: "The todo's title"
 
-      middleware Todo.Authentication
       resolve &Todo.ItemResolver.update_title/2
     end
 
@@ -63,8 +58,19 @@ defmodule Todo.Schema do
     field :mark_done, type: :item do
       arg :id, :id, description: "The todo's ID"
 
-      middleware Todo.Authentication
       resolve &Todo.ItemResolver.mark_done/2
+    end
+  end
+
+  def middleware(middleware, %Absinthe.Type.Field{identifier: :login}, _object) do
+    middleware
+  end
+
+  def middleware(middleware, _field, %Absinthe.Type.Object{identifier: id}) do
+    if Enum.member?([:query, :mutation], id) do
+      [Todo.Authentication | middleware]
+    else
+      middleware
     end
   end
 end

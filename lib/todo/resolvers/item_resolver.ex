@@ -2,8 +2,8 @@ defmodule Todo.ItemResolver do
   alias Todo.{Repo, Item, User}
   import Ecto.Query
 
-  def all(args, %{context: %{current_user: user}}) do
-    case args.show_all do
+  def all(%{show_all: show_all}, %{context: %{current_user: user}}) do
+    case show_all do
       true ->
         user = user |> Repo.preload(:items)
         {:ok, user.items}
