@@ -2,6 +2,8 @@ defmodule Todo.Schema do
   use Absinthe.Schema
   import_types Todo.Schema.Types
 
+  @moduledoc false
+
   query do
     @desc "Get all users"
     field :users, list_of(:user) do

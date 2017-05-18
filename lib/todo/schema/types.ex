@@ -2,6 +2,8 @@ defmodule Todo.Schema.Types do
   use Absinthe.Schema.Notation
   use Absinthe.Ecto, repo: Todo.Repo
 
+  @moduledoc false
+  
   @desc "User object"
   object :user do
     field :id, :id

@@ -38,7 +38,8 @@ defmodule Todo.Mixfile do
      {:absinthe_plug, "~> 1.3.1"},
      {:guardian, "~> 0.14.2"},
      {:comeonin, "~> 3.0.2"},
-     {:absinthe_ecto, git: "https://github.com/absinthe-graphql/absinthe_ecto.git"}]
+     {:absinthe_ecto, git: "https://github.com/absinthe-graphql/absinthe_ecto.git"},
+     {:credo, "~> 0.7.4"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

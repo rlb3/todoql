@@ -1,6 +1,8 @@
 defmodule Todo.UserResolver do
   alias Todo.{Repo, User, Session}
 
+  @moduledoc false
+
   def all(_args, %{context: %{current_user: _user}}) do
     {:ok, Repo.all(User)}
   end
@@ -10,8 +12,8 @@ defmodule Todo.UserResolver do
   end
 
   def login(args, _info) do
-    with {:ok, user} <- Session.authenticate(args, Repo),
-         {:ok, jwt, _ } <- Guardian.encode_and_sign(user, :access) do
+    with {:ok, user}   <- Session.authenticate(args, Repo),
+         {:ok, jwt, _} <- Guardian.encode_and_sign(user, :access) do
       {:ok, %{token: jwt}}
     end
   end

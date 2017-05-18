@@ -1,5 +1,6 @@
 defmodule Todo.Web.Context do
   @behaviour Plug
+  @moduledoc false
 
   import Plug.Conn
 

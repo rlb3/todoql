@@ -1,6 +1,8 @@
 defmodule Todo.Session do
   alias Todo.User
 
+  @moduledoc false
+
   def authenticate(params, repo) do
     user = repo.get_by(User, email: String.downcase(params.email))
     case check_password(user, params.password) do
