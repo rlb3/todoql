@@ -30,7 +30,6 @@ defmodule Todo.Schema do
       arg :email, non_null(:string), description: "User's email"
       arg :password, non_null(:string), description: "User's password"
 
-      middleware Todo.Authentication
       resolve &Todo.UserResolver.login/2
     end
 
