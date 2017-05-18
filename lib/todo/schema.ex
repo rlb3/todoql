@@ -17,7 +17,7 @@ defmodule Todo.Schema do
 
     @desc "Get todo items for the current user"
     field :items, list_of(:item) do
-      arg :show_all, :boolean, default_value: false
+      arg :show_all, :item_filter, default_value: :no
 
       resolve &Todo.ItemResolver.all/2
     end

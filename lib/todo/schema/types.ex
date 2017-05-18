@@ -3,7 +3,7 @@ defmodule Todo.Schema.Types do
   use Absinthe.Ecto, repo: Todo.Repo
 
   @moduledoc false
-  
+
   @desc "User object"
   object :user do
     field :id, :id
@@ -22,5 +22,11 @@ defmodule Todo.Schema.Types do
     field :id, :id
     field :title, :string, description: "Todo title"
     field :completed, :boolean, description: "Whether the todo is completed"
+  end
+
+  @desc "Item filter"
+  enum :item_filter do
+    value :yes, as: :y, description: "All the Items"
+    value :no, as: :n, description: "Only completed Items"
   end
 end
