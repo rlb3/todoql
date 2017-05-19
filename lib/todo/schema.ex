@@ -64,6 +64,13 @@ defmodule Todo.Schema do
 
       resolve &Todo.ItemResolver.mark_done/2
     end
+
+    @desc "Delete a todo by id"
+    field :delete_todo, type: :item do
+      arg :id, :id, description: "The todo's ID"
+
+      resolve &Todo.ItemResolver.delete/2
+    end
   end
 
   def middleware(middleware, %Field{identifier: id}, _object) when id in [:login] do

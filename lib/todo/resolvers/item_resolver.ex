@@ -39,4 +39,15 @@ defmodule Todo.ItemResolver do
     |> Item.changeset(%{completed: true})
     |> Repo.update
   end
+
+  def delete(%{id: id}, %{context: %{current_user: user}}) do
+    query = from i in Item,
+      where: i.id == ^id,
+      where: i.user_id == ^user.id,
+      limit: 1
+
+      query
+      |> Repo.one
+      |> Repo.delete
+  end
 end

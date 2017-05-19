@@ -19,9 +19,10 @@ defmodule Todo.UserResolver do
   end
 
   def register(args, _info) do
-    status = %User{}
-    |> User.registration_changeset(args)
-    |> Repo.insert
+    status =
+      %User{}
+      |> User.registration_changeset(args)
+      |> Repo.insert
 
     case status do
       {:ok, _user} -> login(args, %{})
