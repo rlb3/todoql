@@ -26,9 +26,9 @@ defmodule Todo.ItemResolver do
     |> Repo.insert
   end
 
-  def update_title(args, %{context: %{current_user: _user}}) do
+  def update_title(%{id: id} = args, %{context: %{current_user: _user}}) do
     Item
-    |> Repo.get(args.id)
+    |> Repo.get(id)
     |> Item.changeset(args)
     |> Repo.update
   end
