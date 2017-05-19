@@ -6,6 +6,7 @@ defmodule Todo.User do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
+  
   schema "users" do
     field :email, :string
     field :name, :string
@@ -21,6 +22,7 @@ defmodule Todo.User do
     |> cast(params, [:name, :email], [:password])
     |> validate_required([:name, :email])
     |> unique_constraint(:email)
+    |> downcase_email
     |> put_pass_hash()
   end
 
@@ -29,6 +31,7 @@ defmodule Todo.User do
     |> cast(params, [:name, :email, :password])
     |> validate_required([:name, :email, :password])
     |> unique_constraint(:email)
+    |> downcase_email()
     |> put_pass_hash()
   end
 
@@ -36,6 +39,15 @@ defmodule Todo.User do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
         put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+      _ ->
+        changeset
+    end
+  end
+
+  defp downcase_email(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{email: email}} ->
+        put_change(changeset, :email, String.downcase(email))
       _ ->
         changeset
     end
