@@ -1,5 +1,7 @@
 defmodule Todo.Schema do
   use Absinthe.Schema
+  alias Absinthe.Type.{Field, Object}
+
   import_types Todo.Schema.Types
 
   @moduledoc false
@@ -64,15 +66,15 @@ defmodule Todo.Schema do
     end
   end
 
-  def middleware(middleware, %Absinthe.Type.Field{identifier: :login}, _object) do
+  def middleware(middleware, %Field{identifier: id}, _object) when id in [:login] do
     middleware
   end
 
-  def middleware(middleware, _field, %Absinthe.Type.Object{identifier: id}) do
-    if Enum.member?([:query, :mutation], id) do
+  def middleware(middleware, _field, %Object{identifier: id}) when id in [:query, :mutation] do
       [Todo.Authentication | middleware]
-    else
-      middleware
-    end
+  end
+
+  def middleware(middleware, _field, _object) do
+    middleware
   end
 end
