@@ -22,6 +22,7 @@ defmodule Todo.Schema.Types do
     field :id, :id
     field :title, :string, description: "Todo title"
     field :completed, :boolean, description: "Whether the todo is completed"
+    field :owner, :user, resolve: assoc(:user), description: "The owner of the todo"
   end
 
   @desc "Item filter"
