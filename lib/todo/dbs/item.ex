@@ -6,6 +6,7 @@ defmodule Todo.Item do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
+
   schema "items" do
     field :completed, :boolean, default: false
     field :title, :string
